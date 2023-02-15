@@ -61,8 +61,7 @@
       );
     },
 
-
-/*
+    /*
          _             _     _
      ___| |_ __ _ _ __| |_  | |__   ___ _ __ ___ _
     / __| __/ _` | '__| __| | '_ \ / _ \ '__/ _ (_)
@@ -78,12 +77,32 @@
     // --------------------------------------------------------------
     //
     // test if a specific row on this board contains a conflict
+
+
     hasRowConflictAt: function(rowIndex) {
-      return false; // fixme
+      console.log(this.get(rowIndex), 'this.get(rowIndex) in hasRowConflictAt');
+      let thisRow = this.get(rowIndex);
+      let counter = 0;
+      for (spot of thisRow) {
+        if (spot === 1) {
+          counter ++;
+        }
+      }
+      if (counter > 1) {
+        return true;
+      } else {
+        return false;
+      }
     },
 
     // test if any rows on this board contain conflicts
     hasAnyRowConflicts: function() {
+      let allRows = this.rows();
+      for (let i = 0; i < allRows.length; i++) {
+        if (this.hasRowConflictAt(i)) {
+          return true;
+        }
+      }
       return false; // fixme
     },
 
@@ -94,12 +113,29 @@
     //
     // test if a specific column on this board contains a conflict
     hasColConflictAt: function(colIndex) {
-      return false; // fixme
+      let allRows = this.rows();
+      let counter = 0;
+      for (let row of allRows) {
+        if (row[colIndex] === 1) {
+          counter ++;
+        }
+      }
+      if (counter > 1) {
+        return true;
+      }
+      return false;
     },
 
     // test if any columns on this board contain conflicts
     hasAnyColConflicts: function() {
-      return false; // fixme
+      let size = this.attributes.n;
+      for (i = 0; i < size; i++) {
+        if (this.hasColConflictAt(i)) {
+          return true;
+        }
+      }
+
+      return false;
     },
 
 
@@ -109,6 +145,13 @@
     //
     // test if a specific major diagonal on this board contains a conflict
     hasMajorDiagonalConflictAt: function(majorDiagonalColumnIndexAtFirstRow) {
+      //[row][column]
+      let wholeThing = this.rows();
+      let majorDiagonalSpaces = []; //[row, column]
+      //declare coordinates variable
+      //while the next coordinates are defined
+        //push these coordinates into maj.diag. array
+        //current coordinate variable gets next coordinates
       return false; // fixme
     },
 
