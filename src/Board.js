@@ -80,7 +80,7 @@
 
 
     hasRowConflictAt: function(rowIndex) {
-      console.log(this.get(rowIndex), 'this.get(rowIndex) in hasRowConflictAt');
+      //console.log(this.get(rowIndex), 'this.get(rowIndex) in hasRowConflictAt');
       let thisRow = this.get(rowIndex);
       let counter = 0;
       for (spot of thisRow) {
@@ -145,19 +145,72 @@
     //
     // test if a specific major diagonal on this board contains a conflict
     hasMajorDiagonalConflictAt: function(majorDiagonalColumnIndexAtFirstRow) {
-      //[row][column]
-      let wholeThing = this.rows();
-      let majorDiagonalSpaces = []; //[row, column]
-      //declare coordinates variable
-      //while the next coordinates are defined
-        //push these coordinates into maj.diag. array
-        //current coordinate variable gets next coordinates
-      return false; // fixme
+      let allRows = this.rows();
+      let rows = [];
+      var firstRow;
+      var column = majorDiagonalColumnIndexAtFirstRow;
+      var counter = 0;
+
+      console.log('column', column);
+
+      for (var i = 0; i < allRows.length; i++) {
+        for (var j = 0; j < allRows[i].length; j++) {
+          if (allRows[i][j] === 1) {
+            rows.push(i);
+          }
+        }
+      }
+
+      firstRow = rows[0];
+      console.log(firstRow, 'firstRow');
+
+      // now loop thru all the rows, starting at first row
+      // increment column by 1
+      // if row[column] === 1, return true
+      // else return false
+
+      for (var j = firstRow; j < allRows.length; j++) {
+        console.log('COLUMN', column);
+        console.log('CURRENT ROW', allRows[j]);
+
+
+        if (allRows[j][column] === 1) { // REFINE THIS
+          counter++;
+        }
+        column++;
+
+      }
+      console.log('COUNTER', counter);
+
+      if (counter > 1) {
+        return true;
+      }
+
+      return false;
+
     },
 
     // test if any major diagonals on this board contain conflicts
     hasAnyMajorDiagonalConflicts: function() {
+      let allRows = this.rows();
+      var occupiedCols = [];
+
+      console.log('allRows', allRows);
+      for (var i = 0; i < allRows.length; i++) {
+        for (var j = 0; j < allRows[i].length; j++) {
+          if (allRows[i][j] === 1) {
+            occupiedCols.push(j);
+          }
+        }
+      }
+
+      if (this.hasMajorDiagonalConflictAt(occupiedCols[0]) === true) {
+        return true;
+
+      }
+
       return false; // fixme
+
     },
 
 
